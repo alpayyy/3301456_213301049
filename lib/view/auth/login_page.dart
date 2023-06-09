@@ -121,26 +121,6 @@ class _LoginPageState extends State<LoginPage> {
           _formkey.currentState?.save();
 
           loginFirebase(username, password);
-
-          // if (username == "MERVE" && password == "12345") {
-          //   debugPrint("BAŞARILI GİRİŞ");
-          //   Navigator.pushReplacementNamed(context, '/fruitsinfo');
-          // } else {
-          //   showDialog(
-          //       barrierDismissible: false,
-          //       context: context,
-          //       builder: (BuildContext context) {
-          //         return AlertDialog(
-          //           title: const Text("hata"),
-          //           content: const Text("BİLGİLER YANLIŞ."),
-          //           actions: <Widget>[
-          //             MaterialButton(
-          //                 child: const Text("TAMAM"),
-          //                 onPressed: () => Navigator.pop(context))
-          //           ],
-          //         );
-          //       });
-          // }
         }
       });
 
