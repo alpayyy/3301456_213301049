@@ -1,15 +1,14 @@
-// ignore_for_file: library_private_types_in_public_api
-
+import 'package:final_projem/view/sepet_page.dart';
 import 'package:flutter/material.dart';
 
 class VegetableDetailPage extends StatefulWidget {
   const VegetableDetailPage({
-    super.key,
+    Key? key,
     required this.image,
     required this.name,
     required this.nameAciklama,
     required this.price,
-  });
+  }) : super(key: key);
 
   final String image;
   final String name;
@@ -21,7 +20,8 @@ class VegetableDetailPage extends StatefulWidget {
 }
 
 class _VegetableDetailPageState extends State<VegetableDetailPage> {
-  int weight = 1; // Sebze ağırlığı
+  int weight = 1;
+  List<VegetableCard> cartProducts = [];
 
   void decreaseWeight() {
     if (weight > 1) {
@@ -35,6 +35,23 @@ class _VegetableDetailPageState extends State<VegetableDetailPage> {
     setState(() {
       weight++;
     });
+  }
+
+  void addToCart() {
+    final VegetableCard product = VegetableCard(
+      name: widget.name,
+      price: double.parse(widget.price),
+      image: widget.image,
+      weight: weight,
+    );
+
+    setState(() {
+      cartProducts.add(product);
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Ürün sepete eklendi')),
+    );
   }
 
   @override
@@ -51,7 +68,7 @@ class _VegetableDetailPageState extends State<VegetableDetailPage> {
               alignment: Alignment.center,
               padding: const EdgeInsets.all(16.0),
               child: Image.asset(
-                widget.image, // Sebze görselini buraya ekleyin
+                widget.image,
                 height: 200,
                 fit: BoxFit.cover,
               ),
@@ -61,27 +78,38 @@ class _VegetableDetailPageState extends State<VegetableDetailPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    // Sebze açıklamasını buraya ekleyin
-                    widget.name,
-            
-                    style: const TextStyle(fontSize: 18),
+                  Card(
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.name,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            widget.nameAciklama,
+                            style: const TextStyle(fontSize: 20),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            "Fiyatı: \$${widget.price}",
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-
-                  const SizedBox(height: 15),
-                  Text(
-                    // Sebze açıklamasını buraya ekleyin
-                    widget.nameAciklama,
-            
-                    style: const TextStyle(fontSize: 18),
-                  ),
-                   const SizedBox(height: 15),
-                  Text(
-                    // Sebze açıklamasını buraya ekleyin
-                    "Fiyatı : \$${widget.price }  ",
-            
-                    style: const TextStyle(fontSize: 18),
-                  ),
+                  const SizedBox(height: 16),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -91,31 +119,55 @@ class _VegetableDetailPageState extends State<VegetableDetailPage> {
                       ),
                       Row(
                         children: [
-                          IconButton(
-                            icon: const Icon(Icons.remove),
-                            onPressed: decreaseWeight,
+                          InkWell(
+                            onTap: decreaseWeight,
+                            child: Ink(
+                              decoration: BoxDecoration(
+                                color: Colors.grey[400],
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Icon(Icons.remove, size: 30),
+                            ),
                           ),
-                          IconButton(
-                            icon: const Icon(Icons.add),
-                            onPressed: increaseWeight,
+                          const SizedBox(width: 10),
+                          InkWell(
+                            onTap: increaseWeight,
+                            child: Ink(
+                              decoration: BoxDecoration(
+                                color: Colors.grey[400],
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Icon(Icons.add, size: 30),
+                            ),
                           ),
                         ],
                       ),
                     ],
                   ),
                   const SizedBox(height: 16),
-                  Container(
-                    alignment: Alignment.center,
-                    // padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  SizedBox(
+                    width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {
-                        // addToCart(
-                        //     context); // Call the addToCart method on button press
-                      },
-                      child: const Text('Sepete Ekle'),
+                      onPressed: addToCart,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.all(12.0),
+                        child: Text(
+                          'Sepete Ekle',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                  const SizedBox(height: 16),
                 ],
               ),
             ),
@@ -126,47 +178,16 @@ class _VegetableDetailPageState extends State<VegetableDetailPage> {
   }
 }
 
-class CartPage extends StatelessWidget {
-  final String image;
+class VegetableCard {
   final String name;
+  final double price;
+  final String image;
   final int weight;
 
-  CartPage({required this.image, required this.name, required this.weight});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Sepet'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Ürün Görseli',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            Image.asset(
-              image,
-              height: 200,
-              fit: BoxFit.cover,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'Ürün Adı: $name',
-              style: const TextStyle(fontSize: 18),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Ağırlık: $weight kg',
-              style: const TextStyle(fontSize: 18),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  VegetableCard({
+    required this.name,
+    required this.price,
+    required this.image,
+    required this.weight,
+  });
 }

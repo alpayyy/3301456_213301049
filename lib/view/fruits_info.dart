@@ -1,4 +1,3 @@
-import 'package:final_projem/view/auth/login_page.dart';
 import 'package:final_projem/view/splash_page.dart';
 import 'package:flutter/material.dart';
 

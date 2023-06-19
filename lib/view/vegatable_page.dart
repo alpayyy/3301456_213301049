@@ -4,6 +4,7 @@ import 'package:final_projem/view/vegetable_detail_page.dart';
 import 'package:flutter/material.dart';
 
 
+// ignore: must_be_immutable
 class VegatablePage extends StatelessWidget {
   List<VegatableCard> listVegatableCard = const [
     VegatableCard(

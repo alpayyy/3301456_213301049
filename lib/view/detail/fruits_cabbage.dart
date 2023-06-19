@@ -105,8 +105,8 @@ class _FruitsCabbageState extends State<FruitsCabbage> {
   }
 
   Row _rowFruitsNames() {
-    return Row(
-      children: const [
+    return const Row(
+      children: [
         TextSmall(text: FruitConst.tomatoes_title),
         FruitConst.sizedBoxWidth10,
         TextSmall(

@@ -1,14 +1,14 @@
-// ignore_for_file: prefer_is_empty
-
 import 'package:final_projem/core/models/model_firebase.dart';
+import 'package:final_projem/view/detail/grafik.dart';
 import 'package:final_projem/view/splash_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:path/path.dart' as path;
 
 class UserPage extends StatefulWidget {
-  const UserPage({super.key});
+  const UserPage({Key? key}) : super(key: key);
 
   @override
   State<UserPage> createState() => _UserPageState();
@@ -25,48 +25,56 @@ class _UserPageState extends State<UserPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          centerTitle: true,
-          title: const Text('Kullanıcı Sayfası'),
-        ),
-        body: StreamBuilder<QuerySnapshot>(
-            stream: _stream,
-            builder: (context, AsyncSnapshot snapshot) {
-              if (snapshot.hasError) {
-                return const Center(child: Text('Something went wrong'));
-              }
-              log(snapshot.connectionState.toString());
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        title: const Text('Kullanıcı Sayfası'),
+      ),
+      body: StreamBuilder<QuerySnapshot>(
+        stream: _stream,
+        builder: (context, AsyncSnapshot snapshot) {
+          if (snapshot.hasError) {
+            return const Center(child: Text('Something went wrong'));
+          }
+          log(snapshot.connectionState.toString());
 
-              if (snapshot.hasData) {
-                try {
-                  listOfDocumentSnap = snapshot.data.docs;
-                  //gelen query snapshot verilerini document snopshot a çevirdik
-                  // gelen dosyayı kendi modeline me göre çevirip listeliyorum
-                  gelenUserDetail = listOfDocumentSnap!
-                      .map((e) => ModelFirebase.fromJson(
-                          e.data() as Map<String, dynamic>))
-                      .toList();
+          if (snapshot.hasData) {
+            try {
+              listOfDocumentSnap = snapshot.data.docs;
+              gelenUserDetail = listOfDocumentSnap!
+                  .map((e) =>
+                      ModelFirebase.fromJson(e.data() as Map<String, dynamic>))
+                  .toList();
 
-                  log("gelen Task  length : ${gelenUserDetail?.length}");
+              log("gelen Task  length : ${gelenUserDetail?.length}");
 
-                  log("gelen Task   : $gelenUserDetail");
-                } catch (e) {
-                  log("error :  $e");
-                }
+              log("gelen Task   : $gelenUserDetail");
+            } catch (e) {
+              log("error :  $e");
+            }
 
-                return _designHomeListView();
-              }
+            return _designHomeListView();
+          }
 
-              return Padding(
-                padding:
-                    EdgeInsets.only(top: MediaQuery.of(context).size.width / 4),
-                child: const Center(child: CircularProgressIndicator()),
-              );
-            }));
+          return Padding(
+            padding:
+                EdgeInsets.only(top: MediaQuery.of(context).size.width / 4),
+            child: const Center(child: CircularProgressIndicator()),
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const GrafikPage()));
+        },
+        heroTag: 'grafik_button',
+        child: const Icon(Icons.bar_chart),
+      ),
+    );
   }
 
-  _designHomeListView() {
+  Widget _designHomeListView() {
     return gelenUserDetail?.length == 0 || gelenUserDetail?.length == null
         ? _hasntData()
         : ListView.builder(
@@ -74,7 +82,7 @@ class _UserPageState extends State<UserPage> {
             itemBuilder: (context, index) {
               var userDetail = gelenUserDetail?[index];
 
-              log("Task email : ${userDetail?.email}  "); // teyit amaçlı verinin gelip gelmediğini kontrol etmek için kullanıyoruz
+              log("Task email : ${userDetail?.email}  ");
 
               return Padding(
                 padding: const EdgeInsets.all(50),
@@ -83,11 +91,10 @@ class _UserPageState extends State<UserPage> {
                   children: [
                     Row(
                       children: [
-                        const CircleAvatar(
+                         CircleAvatar(
                           radius: 45,
-                          // Buraya kullanıcının resmini yükleyebilirsiniz.
-                          backgroundImage:
-                              AssetImage('assets/images/user_image.png'),
+                          backgroundImage: AssetImage(
+                              path.join('assets', 'images', 'user_image.png')),
                         ),
                         const SizedBox(width: 45.0),
                         Column(
@@ -121,11 +128,11 @@ class _UserPageState extends State<UserPage> {
                   ],
                 ),
               );
-            });
+            },
+          );
   }
 
-// data olmadığı zaman çalışacak kısım
-  Padding _hasntData() {
+  Widget _hasntData() {
     return Padding(
       padding: EdgeInsets.only(top: MediaQuery.of(context).size.width / 3),
       child: const Column(
@@ -144,8 +151,7 @@ class _UserPageState extends State<UserPage> {
     );
   }
 
-// Firebase çıkış işlemi için fonksiyonu
-  Future firebaseOut(BuildContext context) async {
+  Future<void> firebaseOut(BuildContext context) async {
     await FirebaseAuth.instance.signOut().then(
           (value) => Navigator.of(context).push(
             MaterialPageRoute(

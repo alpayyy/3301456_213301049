@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 
 
+// ignore: must_be_immutable
 class FruitPage extends StatelessWidget {
   List<FruitCard> listFruitCard = const [
     FruitCard(
