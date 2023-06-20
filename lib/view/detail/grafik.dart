@@ -16,7 +16,7 @@ class _GrafikState extends State<GrafikPage> with SingleTickerProviderStateMixin
   void initState() {
     super.initState();
     _animationController = AnimationController(
-      duration: const Duration(milliseconds: 1500),
+      duration: const Duration(milliseconds: 1350),
       vsync: this,
     );
 
@@ -39,18 +39,13 @@ class _GrafikState extends State<GrafikPage> with SingleTickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
     var data = [
-      Sales("Ocak", 10),
-      Sales("Şubat", 30),
-      Sales("Mart", 50),
-      Sales("Nisan", 7),
-      Sales("Mayıs", 0),
-      Sales("Haziran", 5),
-      Sales("Temmuz", 20),
-      Sales("Ağustos", 50),
-      Sales("Eylül", 5),
-      Sales("Ekim", 40),
-      Sales("Kasım", 5),
-      Sales("Aralık", 35),
+      Sales("PAZARTESİ", 5),
+      Sales("SALI", 3),
+      Sales("ÇARŞAMBA", 7),
+      Sales("PERŞEMBE", 8),
+      Sales("CUMA", 11),
+      Sales("CUMARTESİ", 5),
+      Sales("PAZAR", 12),
     ];
 
     return Container(
@@ -60,13 +55,19 @@ class _GrafikState extends State<GrafikPage> with SingleTickerProviderStateMixin
           padding: const EdgeInsets.all(12.0),
           child: Column(
             children: [
-              const Text(
-                "Alışveriş Pasta Grafiği",
-                style: TextStyle(
-                  decoration: TextDecoration.none,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
+              const SizedBox(
+                height: 8,
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Text(
+                    " ",
+                    style: TextStyle(
+                      decoration: TextDecoration.none,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(height: 8),
@@ -100,7 +101,7 @@ class _GrafikState extends State<GrafikPage> with SingleTickerProviderStateMixin
               ),
               const SizedBox(height: 16),
               const Text(
-                "Alışveriş Çizgi Grafiği",
+                "Manav Çizgi Grafiği",
                 style: TextStyle(
                   decoration: TextDecoration.none,
                   color: Colors.black,
