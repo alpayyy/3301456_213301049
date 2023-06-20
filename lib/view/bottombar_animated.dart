@@ -36,7 +36,7 @@ class _BottomBarAnimatedPageState extends State<BottomBarAnimatedPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) =>   CartPage()));
+              .push(MaterialPageRoute(builder: (context) =>   const CartPage()));
         },
         child: const Icon(Icons.shopping_cart),
         //params

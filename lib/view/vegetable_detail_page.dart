@@ -1,5 +1,19 @@
-import 'package:final_projem/view/sepet_page.dart';
 import 'package:flutter/material.dart';
+import 'package:final_projem/view/sepet_page.dart';
+
+class VegetableCard {
+  final String name;
+  final double price;
+  final String image;
+  final int weight;
+
+  VegetableCard({
+    required this.name,
+    required this.price,
+    required this.image,
+    required this.weight,
+  });
+}
 
 class VegetableDetailPage extends StatefulWidget {
   const VegetableDetailPage({
@@ -21,7 +35,6 @@ class VegetableDetailPage extends StatefulWidget {
 
 class _VegetableDetailPageState extends State<VegetableDetailPage> {
   int weight = 1;
-  List<VegetableCard> cartProducts = [];
 
   void decreaseWeight() {
     if (weight > 1) {
@@ -37,20 +50,25 @@ class _VegetableDetailPageState extends State<VegetableDetailPage> {
     });
   }
 
-  void addToCart() {
-    final VegetableCard product = VegetableCard(
-      name: widget.name,
-      price: double.parse(widget.price),
-      image: widget.image,
+  void addToCart(BuildContext context) {
+    String image = widget.image;
+    String name = widget.name;
+    double price = double.parse(widget.price);
+
+    VegetableCard product = VegetableCard(
+      name: name,
+      price: price,
+      image: image,
       weight: weight,
     );
 
-    setState(() {
-      cartProducts.add(product);
-    });
+    Sepet.addToCart(product); // Sepet sınıfı kullanılıyor
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Ürün sepete eklendi')),
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CartPage(),
+      ),
     );
   }
 
@@ -122,8 +140,8 @@ class _VegetableDetailPageState extends State<VegetableDetailPage> {
                           InkWell(
                             onTap: decreaseWeight,
                             child: Ink(
-                              decoration: BoxDecoration(
-                                color: Colors.grey[400],
+                              decoration: const BoxDecoration(
+                                color: Color.fromARGB(255, 179, 42, 42),
                                 shape: BoxShape.circle,
                               ),
                               child: const Icon(Icons.remove, size: 30),
@@ -133,8 +151,8 @@ class _VegetableDetailPageState extends State<VegetableDetailPage> {
                           InkWell(
                             onTap: increaseWeight,
                             child: Ink(
-                              decoration: BoxDecoration(
-                                color: Colors.grey[400],
+                              decoration: const BoxDecoration(
+                                color: Color.fromARGB(255, 164, 34, 34),
                                 shape: BoxShape.circle,
                               ),
                               child: const Icon(Icons.add, size: 30),
@@ -144,26 +162,25 @@ class _VegetableDetailPageState extends State<VegetableDetailPage> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 16),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: addToCart,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
+                  const SizedBox(height: 15),
+                  GestureDetector(
+                    onTap: () {
+                      addToCart(context);
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4),
+                        color: const Color.fromARGB(255, 34, 146, 19),
                       ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(12.0),
-                        child: Text(
-                          'Sepete Ekle',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
+                      child: const Text(
+                        "Sepete Ekle",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
@@ -176,18 +193,4 @@ class _VegetableDetailPageState extends State<VegetableDetailPage> {
       ),
     );
   }
-}
-
-class VegetableCard {
-  final String name;
-  final double price;
-  final String image;
-  final int weight;
-
-  VegetableCard({
-    required this.name,
-    required this.price,
-    required this.image,
-    required this.weight,
-  });
 }
