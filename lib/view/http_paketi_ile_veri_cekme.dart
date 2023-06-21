@@ -27,7 +27,7 @@ class _HttpPaketDataState extends State<HttpPaketData> {
     _posts = _fetchPosts();
   }
 
-// http paketinin kullanıldığı kısım
+
   Future<List<Post>> _fetchPosts() async {
     var url = Uri.https('jsonplaceholder.typicode.com', "/posts");
     final response = await http.get(url);
@@ -46,7 +46,7 @@ class _HttpPaketDataState extends State<HttpPaketData> {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: FruitConst.colorgreen,
-        title: const Text("http paketinin örneği"),
+        title: const Text("http paketi"),
       ),
       body: FutureBuilder<List<Post>>(
         future: _posts,

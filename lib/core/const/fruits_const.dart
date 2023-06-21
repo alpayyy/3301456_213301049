@@ -27,46 +27,46 @@ class FruitConst {
   static const potato_f = 'assets/images/potato.png';
 //Text
   // ignore: constant_identifier_names
-  static const text_title = 'Find your Daily Groceries Products';
+  static const text_title = 'Tüm Aradığınız Ürünler Bu Manavda ';
   // ignore: constant_identifier_names
   static const text_info_context =
-      'Florem Ipsum is simply dummy text of the printing and typesetting industry.';
+      'Her şeyin en iyisi.';
   // ignore: constant_identifier_names
-  static const container_elv_text = 'Order Now';
+  static const container_elv_text = 'Sipariş ver';
 
-  static const stop = 'Not Found';
+  static const stop = 'Bulunamadı';
   // ignore: constant_identifier_names
-  static const elevated_buton = 'Get Started';
+  static const elevated_buton = 'Başlayalım';
   // ignore: constant_identifier_names
-  static const container_title = 'Order Our Best\nGroceries Products';
+  static const container_title = 'En İyi Sebzeler Burada sizlerle';
   // ignore: constant_identifier_names
-  static const home_title = 'Popular Items ';
+  static const home_title = 'Popular Ürünler';
   // ignore: constant_identifier_names
-  static const see_all = 'SeeAll';
+  static const see_all = 'Gör';
   // ignore: constant_identifier_names
   static const marul_title = 'Chinese cabbage';
   // ignore: constant_identifier_names
-  static const marul_subtitle='Description';
+  static const marul_subtitle='Tanım';
   // ignore: constant_identifier_names
-  static const marul_context='Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has';
+  static const marul_context='Sebzelerimizin hepsi son derece taze ve lezzetli';
   // ignore: constant_identifier_names
-  static const marul_subtitletwo='Description';
+  static const marul_subtitletwo='Tanım';
   // ignore: constant_identifier_names
   static const kg_m = '1 kg';
   // ignore: constant_identifier_names
-  static const f_many = '\$12';
+  static const f_many = '\$5';
   // ignore: constant_identifier_names
   static const text_price_line = '\$16.99';
   // ignore: constant_identifier_names
   static const tomatoes_title = 'Tomatoes';
   // ignore: constant_identifier_names
-  static const tomatoes_subtitle='Description';
+  static const tomatoes_subtitle='Tanım';
   // ignore: constant_identifier_names
-  static const tomatoes_context='Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the Industrys standard dummy text ever since the 1500s';
+  static const tomatoes_context='Sebzelerimizin hepsi son derece taze ve lezzetli';
    // ignore: constant_identifier_names
-   static const tomatoes_subtitletwo='Related Item';
+   static const tomatoes_subtitletwo='İlgili Ürün';
   // ignore: constant_identifier_names
-  static const new_item = 'New Item';
+  static const new_item = 'İlgili Ürün';
   // ignore: constant_identifier_names
   static const potato_title = 'Potato';
   // ignore: constant_identifier_names
@@ -74,20 +74,20 @@ class FruitConst {
   // ignore: constant_identifier_names
   static const grape_name = 'Grape';
   // ignore: constant_identifier_names
-  static const potato_subtitle='Description';
+  static const potato_subtitle='Tanım';
   // ignore: constant_identifier_names
-  static const potato_context='Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the Industrys standard dummy text ever since the 1500s';
+  static const potato_context='Meyvelerimizin hepsi son derece taze ve lezzetli';
   // ignore: constant_identifier_names
-  static const potato_subtitletwo='Related Item';
+  static const potato_subtitletwo='İlgili Ürün';
   // ignore: constant_identifier_names
   static const green_broccoli = 'Green Brocolli';
   // ignore: constant_identifier_names
-  static const brocoli_subtitle = 'Description';
+  static const brocoli_subtitle = 'Delicious';
   // ignore: constant_identifier_names
   static const brocoli_context =
-      'Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the Industrys standard dummy text ever since the 1500s';
+      'Meyvelerimizin hepsi son derece taze ve lezzetli';
   // ignore: constant_identifier_names
-  static const brocoli_subtitletwo = 'Related Item';
+  static const brocoli_subtitletwo = 'İlgili Ürün';
   // ignore: constant_identifier_names
   static const elevaten_button_two = ' Add To Cart';
 //ButtonText
