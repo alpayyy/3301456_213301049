@@ -64,12 +64,7 @@ class _VegetableDetailPageState extends State<VegetableDetailPage> {
 
     Sepet.addToCart(product); // Sepet sınıfı kullanılıyor
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => CartPage(),
-      ),
-    );
+    
   }
 
   @override
