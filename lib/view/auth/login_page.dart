@@ -27,13 +27,13 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              // username girildiği  kısmının butonu
+            
               _emailTextfield(),
               const SizedBox(
                 height: 10,
               ),
 
-              // şifrenin girildiği button
+              
               _passwordTextfield(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
